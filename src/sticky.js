@@ -11,7 +11,8 @@ export default class Sticky extends React.Component {
     stickyStyle: React.PropTypes.object,
     topOffset: React.PropTypes.number,
     bottomOffset: React.PropTypes.number,
-    onStickyStateChange: React.PropTypes.func
+    onStickyStateChange: React.PropTypes.func,
+    channelName: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -22,7 +23,8 @@ export default class Sticky extends React.Component {
     stickyStyle: {},
     topOffset: 0,
     bottomOffset: 0,
-    onStickyStateChange: () => {}
+    onStickyStateChange: () => {},
+    channelName: 'default'
   }
 
   static contextTypes = {
@@ -36,7 +38,7 @@ export default class Sticky extends React.Component {
 
   componentWillMount() {
     this.channel = this.context['sticky-channel'];
-    this.channel.subscribe(this.updateContext);
+    this.channel.subscribe(this.updateContext, this.props.channelName);
   }
 
   componentDidMount() {
@@ -50,7 +52,7 @@ export default class Sticky extends React.Component {
 
   componentWillUnmount() {
     this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
-    this.channel.unsubscribe(this.updateContext);
+    this.channel.unsubscribe(this.updateContext, this.props.channelName);
   }
 
   getXOffset() {
@@ -108,7 +110,7 @@ export default class Sticky extends React.Component {
       if (this.channel) {
         this.channel.update((data) => {
           data.offset = (isSticky ? this.state.height : 0);
-        });
+        }, this.props.channelName);
       }
 
       this.props.onStickyStateChange(isSticky);
@@ -193,6 +195,7 @@ export default class Sticky extends React.Component {
       stickyStyle,
       bottomOffset,
       onStickyStateChange,
+      channelName,
       ...props
     } = this.props;
 

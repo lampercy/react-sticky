@@ -84,7 +84,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -93,25 +93,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Channel = function Channel(data) {
+	  var channelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+
 	  _classCallCheck(this, Channel);
 
 	  var listeners = [];
 	  data = data || {};
 
 	  this.subscribe = function (fn) {
-	    listeners.push(fn);
+	    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+
+	    if (name === channelName) {
+	      listeners.push(fn);
+	    }
 	  };
 
 	  this.unsubscribe = function (fn) {
-	    var idx = listeners.indexOf(fn);
-	    if (idx !== -1) listeners.splice(idx, 1);
+	    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+
+	    if (name === channelName) {
+	      var idx = listeners.indexOf(fn);
+	      if (idx !== -1) listeners.splice(idx, 1);
+	    }
 	  };
 
 	  this.update = function (fn) {
-	    if (fn) fn(data);
-	    listeners.forEach(function (l) {
-	      return l(data);
-	    });
+	    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+
+	    if (name === channelName) {
+	      if (fn) fn(data);
+	      listeners.forEach(function (l) {
+	        return l(data);
+	      });
+	    }
 	  };
 	};
 
@@ -156,6 +170,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -168,18 +184,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Container(props) {
 	    _classCallCheck(this, Container);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Container).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).call(this, props));
 
 	    _this.updateOffset = function (_ref) {
-	      var inherited = _ref.inherited;
-	      var offset = _ref.offset;
+	      var inherited = _ref.inherited,
+	          offset = _ref.offset;
 
 	      _this.channel.update(function (data) {
 	        data.inherited = inherited + offset;
-	      });
+	      }, _this.props.channelName);
 	    };
 
-	    _this.channel = new _channel2.default({ inherited: 0, offset: 0, node: null });
+	    _this.channel = new _channel2.default({ inherited: 0, offset: 0, node: null }, props.channelName);
 	    return _this;
 	  }
 
@@ -192,7 +208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      var parentChannel = this.context['sticky-channel'];
-	      if (parentChannel) parentChannel.subscribe(this.updateOffset);
+	      if (parentChannel) parentChannel.subscribe(this.updateOffset, this.props.channelName);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -200,24 +216,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var node = _reactDom2.default.findDOMNode(this);
 	      this.channel.update(function (data) {
 	        data.node = node;
-	      });
+	      }, this.props.channelName);
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      this.channel.update(function (data) {
 	        data.node = null;
-	      });
+	      }, this.props.channelName);
 
 	      var parentChannel = this.context['sticky-channel'];
-	      if (parentChannel) parentChannel.unsubscribe(this.updateOffset);
+	      if (parentChannel) parentChannel.unsubscribe(this.updateOffset, this.props.channelName);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props,
+	          channelName = _props.channelName,
+	          props = _objectWithoutProperties(_props, ['channelName']);
+
 	      return _react2.default.createElement(
 	        'div',
-	        this.props,
+	        props,
 	        this.props.children
 	      );
 	    }
@@ -231,6 +251,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	Container.childContextTypes = {
 	  'sticky-channel': _react2.default.PropTypes.any
+	};
+	Container.defaultProps = {
+	  channelName: 'default'
 	};
 	exports.default = Container;
 	module.exports = exports['default'];
@@ -273,11 +296,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Sticky(props) {
 	    _classCallCheck(this, Sticky);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Sticky).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Sticky.__proto__ || Object.getPrototypeOf(Sticky)).call(this, props));
 
 	    _this.updateContext = function (_ref) {
-	      var inherited = _ref.inherited;
-	      var node = _ref.node;
+	      var inherited = _ref.inherited,
+	          node = _ref.node;
 
 	      _this.containerNode = node;
 	      _this.setState({
@@ -300,7 +323,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (_this.channel) {
 	          _this.channel.update(function (data) {
 	            data.offset = isSticky ? _this.state.height : 0;
-	          });
+	          }, _this.props.channelName);
 	        }
 
 	        _this.props.onStickyStateChange(isSticky);
@@ -315,7 +338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.channel = this.context['sticky-channel'];
-	      this.channel.subscribe(this.updateContext);
+	      this.channel.subscribe(this.updateContext, this.props.channelName);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -332,7 +355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
-	      this.channel.unsubscribe(this.updateContext);
+	      this.channel.unsubscribe(this.updateContext, this.props.channelName);
 	    }
 	  }, {
 	    key: 'getXOffset',
@@ -453,15 +476,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        style = _extends({}, style, _stickyStyle, this.props.stickyStyle);
 	      }
 
-	      var _props = this.props;
-	      var topOffset = _props.topOffset;
-	      var isActive = _props.isActive;
-	      var stickyClassName = _props.stickyClassName;
-	      var stickyStyle = _props.stickyStyle;
-	      var bottomOffset = _props.bottomOffset;
-	      var onStickyStateChange = _props.onStickyStateChange;
-
-	      var props = _objectWithoutProperties(_props, ['topOffset', 'isActive', 'stickyClassName', 'stickyStyle', 'bottomOffset', 'onStickyStateChange']);
+	      var _props = this.props,
+	          topOffset = _props.topOffset,
+	          isActive = _props.isActive,
+	          stickyClassName = _props.stickyClassName,
+	          stickyStyle = _props.stickyStyle,
+	          bottomOffset = _props.bottomOffset,
+	          onStickyStateChange = _props.onStickyStateChange,
+	          channelName = _props.channelName,
+	          props = _objectWithoutProperties(_props, ['topOffset', 'isActive', 'stickyClassName', 'stickyStyle', 'bottomOffset', 'onStickyStateChange', 'channelName']);
 
 	      return _react2.default.createElement(
 	        'div',
@@ -487,7 +510,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stickyStyle: _react2.default.PropTypes.object,
 	  topOffset: _react2.default.PropTypes.number,
 	  bottomOffset: _react2.default.PropTypes.number,
-	  onStickyStateChange: _react2.default.PropTypes.func
+	  onStickyStateChange: _react2.default.PropTypes.func,
+	  channelName: _react2.default.PropTypes.string
 	};
 	Sticky.defaultProps = {
 	  isActive: true,
@@ -497,7 +521,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stickyStyle: {},
 	  topOffset: 0,
 	  bottomOffset: 0,
-	  onStickyStateChange: function onStickyStateChange() {}
+	  onStickyStateChange: function onStickyStateChange() {},
+	  channelName: 'default'
 	};
 	Sticky.contextTypes = {
 	  'sticky-channel': _react2.default.PropTypes.any

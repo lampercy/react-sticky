@@ -13,9 +13,13 @@ export default class Container extends React.Component {
     'sticky-channel': React.PropTypes.any,
   }
 
+  static defaultProps = {
+    channelName: 'default'
+  }
+
   constructor(props) {
     super(props);
-    this.channel = new Channel({ inherited: 0, offset: 0, node: null });
+    this.channel = new Channel({ inherited: 0, offset: 0, node: null }, props.channelName);
   }
 
   getChildContext() {
@@ -24,27 +28,31 @@ export default class Container extends React.Component {
 
   componentWillMount() {
     const parentChannel = this.context['sticky-channel'];
-    if (parentChannel) parentChannel.subscribe(this.updateOffset);
+    if (parentChannel) parentChannel.subscribe(this.updateOffset, this.props.channelName);
   }
 
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this);
-    this.channel.update((data) => { data.node = node });
+    this.channel.update((data) => { data.node = node }, this.props.channelName);
   }
 
   componentWillUnmount() {
-    this.channel.update((data) => { data.node = null });
+    this.channel.update((data) => { data.node = null }, this.props.channelName);
 
     const parentChannel = this.context['sticky-channel'];
-    if (parentChannel) parentChannel.unsubscribe(this.updateOffset);
+    if (parentChannel) parentChannel.unsubscribe(this.updateOffset, this.props.channelName);
   }
 
   updateOffset = ({ inherited, offset }) => {
-    this.channel.update((data) => { data.inherited = inherited + offset });
+    this.channel.update((data) => { data.inherited = inherited + offset }, this.props.channelName);
   }
 
   render() {
-    return <div {...this.props}>
+    const {
+      channelName,
+      ...props
+    } = this.props;
+    return <div {...props}>
       {this.props.children}
     </div>
   }
