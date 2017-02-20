@@ -1,6 +1,6 @@
 {
   "name": "react-sticky",
-  "version": "5.0.5-lhmod-1",
+  "version": "5.0.5-lhmod-2",
   "description": "Sticky component for React",
   "main": "lib/index.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "chai": "^3.2.0",
     "jsdom": "8.0.4",
     "mocha": "^2.2.5",
+    "lodash.throttle": "^4.1.1",
     "react-addons-test-utils": "^0.14.0 || ^15.0.0",
     "react": "^0.14.0 || ^15.0.0",
     "react-dom": "^0.14.0 || ^15.0.0",

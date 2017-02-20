@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import throttle from 'lodash.throttle';
 
 export default class Sticky extends React.Component {
 
@@ -34,6 +35,7 @@ export default class Sticky extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.recomputeState = throttle(this.recomputeState.bind(this), 50);
   }
 
   componentWillMount() {
@@ -55,12 +57,16 @@ export default class Sticky extends React.Component {
     this.channel.unsubscribe(this.updateContext, this.props.channelName);
   }
 
+  getPlaceholderBoundingRect() {
+    return this.refs.placeholder.getBoundingClientRect();
+  }
+
   getXOffset() {
-    return this.refs.placeholder.getBoundingClientRect().left;
+    return this.getPlaceholderBoundingRect().left;
   }
 
   getWidth() {
-    return this.refs.placeholder.getBoundingClientRect().width;
+    return this.getPlaceholderBoundingRect().width;
   }
 
   getHeight() {
@@ -68,7 +74,7 @@ export default class Sticky extends React.Component {
   }
 
   getDistanceFromTop() {
-    return this.refs.placeholder.getBoundingClientRect().top;
+    return this.getPlaceholderBoundingRect().top;
   }
 
   getDistanceFromBottom() {
@@ -99,8 +105,9 @@ export default class Sticky extends React.Component {
   recomputeState = () => {
     const isSticky = this.isSticky();
     const height = this.getHeight();
-    const width = this.getWidth();
-    const xOffset = this.getXOffset();
+    const boundingRect = this.getPlaceholderBoundingRect();
+    const width = boundingRect.width;
+    const xOffset = boundingRect.left;
     const distanceFromBottom = this.getDistanceFromBottom();
     const hasChanged = this.state.isSticky !== isSticky;
 
