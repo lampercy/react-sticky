@@ -302,6 +302,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var _this = _possibleConstructorReturn(this, (Sticky.__proto__ || Object.getPrototypeOf(Sticky)).call(this, props));
 
+	    _this.getChildren = function (ref) {
+	      _this._children = ref;
+	    };
+
+	    _this.getPlaceholder = function (ref) {
+	      _this._placeholder = ref;
+	    };
+
 	    _this.updateContext = function (_ref) {
 	      var inherited = _ref.inherited,
 	          node = _ref.node;
@@ -366,27 +374,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getPlaceholderBoundingRect',
 	    value: function getPlaceholderBoundingRect() {
-	      return this.refs.placeholder.getBoundingClientRect();
+	      return this._placeholder ? this._placeholder.getBoundingClientRect() : {};
 	    }
 	  }, {
 	    key: 'getXOffset',
 	    value: function getXOffset() {
-	      return this.getPlaceholderBoundingRect().left;
+	      return this.getPlaceholderBoundingRect().left || 0;
 	    }
 	  }, {
 	    key: 'getWidth',
 	    value: function getWidth() {
-	      return this.getPlaceholderBoundingRect().width;
+	      return this.getPlaceholderBoundingRect().width || 0;
 	    }
 	  }, {
 	    key: 'getHeight',
 	    value: function getHeight() {
-	      return _reactDom2.default.findDOMNode(this.refs.children).getBoundingClientRect().height;
+	      return this._children ? this._children.getBoundingClientRect().height : 0;
 	    }
 	  }, {
 	    key: 'getDistanceFromTop',
 	    value: function getDistanceFromTop() {
-	      return this.getPlaceholderBoundingRect().top;
+	      return this.getPlaceholderBoundingRect().top || 0;
 	    }
 	  }, {
 	    key: 'getDistanceFromBottom',
@@ -500,10 +508,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement('div', { ref: 'placeholder', style: placeholderStyle }),
+	        _react2.default.createElement('div', { ref: this.getPlaceholder, style: placeholderStyle }),
 	        _react2.default.createElement(
 	          'div',
-	          _extends({}, props, { ref: 'children', className: className, style: style }),
+	          _extends({}, props, { ref: this.getChildren, className: className, style: style }),
 	          this.props.children
 	        )
 	      );

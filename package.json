@@ -1,6 +1,6 @@
 {
   "name": "react-sticky",
-  "version": "5.0.5-lhmod-2",
+  "version": "5.0.5-lhmod-3",
   "description": "Sticky component for React",
   "main": "lib/index.js",
   "scripts": {

@@ -38,6 +38,14 @@ export default class Sticky extends React.Component {
     this.recomputeState = throttle(this.recomputeState.bind(this), 50);
   }
 
+  getChildren = (ref) => {
+    this._children = ref;
+  }
+
+  getPlaceholder = (ref) => {
+    this._placeholder = ref;
+  }
+
   componentWillMount() {
     this.channel = this.context['sticky-channel'];
     this.channel.subscribe(this.updateContext, this.props.channelName);
@@ -58,23 +66,23 @@ export default class Sticky extends React.Component {
   }
 
   getPlaceholderBoundingRect() {
-    return this.refs.placeholder.getBoundingClientRect();
+    return this._placeholder ? this._placeholder.getBoundingClientRect() : {};
   }
 
   getXOffset() {
-    return this.getPlaceholderBoundingRect().left;
+    return this.getPlaceholderBoundingRect().left || 0;
   }
 
   getWidth() {
-    return this.getPlaceholderBoundingRect().width;
+    return this.getPlaceholderBoundingRect().width || 0;
   }
 
   getHeight() {
-    return ReactDOM.findDOMNode(this.refs.children).getBoundingClientRect().height;
+    return this._children ? this._children.getBoundingClientRect().height : 0;
   }
 
   getDistanceFromTop() {
-    return this.getPlaceholderBoundingRect().top;
+    return this.getPlaceholderBoundingRect().top || 0;
   }
 
   getDistanceFromBottom() {
@@ -208,8 +216,8 @@ export default class Sticky extends React.Component {
 
     return (
       <div>
-        <div ref="placeholder" style={placeholderStyle}></div>
-        <div {...props} ref="children" className={className} style={style}>
+        <div ref={ this.getPlaceholder } style={placeholderStyle}></div>
+        <div {...props} ref={ this.getChildren } className={className} style={style}>
           {this.props.children}
         </div>
       </div>
