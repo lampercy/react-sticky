@@ -13,7 +13,7 @@ export default class Sticky extends React.Component {
     stickyStyle: PropTypes.object,
     topOffset: PropTypes.number,
     bottomOffset: PropTypes.number,
-    onStickyStateChange: PropTypes.func
+    onStickyStateChange: PropTypes.func,
     channelName: PropTypes.string
   }
 
