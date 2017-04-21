@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -80,9 +80,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Channel = _channel2.default;
 	exports.default = _sticky2.default;
 
-/***/ }),
+/***/ },
 /* 1 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
 
 	"use strict";
 
@@ -123,9 +123,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = emptyFunction;
 
-/***/ }),
+/***/ },
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
@@ -183,9 +183,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = invariant;
 
-/***/ }),
+/***/ },
 /* 3 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -235,65 +235,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Channel;
 	module.exports = exports['default'];
 
-/***/ }),
+/***/ },
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	if ((undefined) !== 'production') {
-	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-	    Symbol.for &&
-	    Symbol.for('react.element')) ||
-	    0xeac7;
-
-	  var isValidElement = function(object) {
-	    return typeof object === 'object' &&
-	      object !== null &&
-	      object.$$typeof === REACT_ELEMENT_TYPE;
-	  };
-
-	  // By explicitly using `prop-types` you are opting into new development behavior.
-	  // http://fb.me/prop-types-in-prod
-	  var throwOnDirectAccess = true;
-	  module.exports = __webpack_require__(13)(isValidElement, throwOnDirectAccess);
-	} else {
-	  // By explicitly using `prop-types` you are opting into new production behavior.
-	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(12)();
-	}
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	'use strict';
-
-	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-	module.exports = ReactPropTypesSecret;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright 2014-2015, Facebook, Inc.
@@ -362,21 +306,77 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = warning;
 
-/***/ }),
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	if ((undefined) !== 'production') {
+	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+	    Symbol.for &&
+	    Symbol.for('react.element')) ||
+	    0xeac7;
+
+	  var isValidElement = function(object) {
+	    return typeof object === 'object' &&
+	      object !== null &&
+	      object.$$typeof === REACT_ELEMENT_TYPE;
+	  };
+
+	  // By explicitly using `prop-types` you are opting into new development behavior.
+	  // http://fb.me/prop-types-in-prod
+	  var throwOnDirectAccess = true;
+	  module.exports = __webpack_require__(14)(isValidElement, throwOnDirectAccess);
+	} else {
+	  // By explicitly using `prop-types` you are opting into new production behavior.
+	  // http://fb.me/prop-types-in-prod
+	  module.exports = __webpack_require__(13)();
+	}
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	'use strict';
+
+	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+	module.exports = ReactPropTypesSecret;
+
+
+/***/ },
 /* 7 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
-/***/ }),
+/***/ },
 /* 8 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
 
-/***/ }),
+/***/ },
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -390,7 +390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _propTypes = __webpack_require__(4);
+	var _propTypes = __webpack_require__(5);
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -492,9 +492,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Container;
 	module.exports = exports['default'];
 
-/***/ }),
+/***/ },
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -510,7 +510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _propTypes = __webpack_require__(4);
+	var _propTypes = __webpack_require__(5);
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -518,7 +518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _lodash = __webpack_require__(6);
+	var _lodash = __webpack_require__(11);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -539,7 +539,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, Sticky);
 
 	    var _this = _possibleConstructorReturn(this, (Sticky.__proto__ || Object.getPrototypeOf(Sticky)).call(this, props));
-<<<<<<< HEAD
 
 	    _this.getChildren = function (ref) {
 	      _this._children = ref;
@@ -548,8 +547,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.getPlaceholder = function (ref) {
 	      _this._placeholder = ref;
 	    };
-=======
->>>>>>> upstream/master
 
 	    _this.updateContext = function (_ref) {
 	      var inherited = _ref.inherited,
@@ -743,12 +740,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          stickyStyle = _props.stickyStyle,
 	          bottomOffset = _props.bottomOffset,
 	          onStickyStateChange = _props.onStickyStateChange,
-<<<<<<< HEAD
 	          channelName = _props.channelName,
 	          props = _objectWithoutProperties(_props, ['topOffset', 'isActive', 'stickyClassName', 'stickyStyle', 'bottomOffset', 'onStickyStateChange', 'channelName']);
-=======
-	          props = _objectWithoutProperties(_props, ['topOffset', 'isActive', 'stickyClassName', 'stickyStyle', 'bottomOffset', 'onStickyStateChange']);
->>>>>>> upstream/master
 
 	      return _react2.default.createElement(
 	        'div',
@@ -767,17 +760,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react2.default.Component);
 
 	Sticky.propTypes = {
-<<<<<<< HEAD
-	  isActive: _react2.default.PropTypes.bool,
-	  className: _react2.default.PropTypes.string,
-	  style: _react2.default.PropTypes.object,
-	  stickyClassName: _react2.default.PropTypes.string,
-	  stickyStyle: _react2.default.PropTypes.object,
-	  topOffset: _react2.default.PropTypes.number,
-	  bottomOffset: _react2.default.PropTypes.number,
-	  onStickyStateChange: _react2.default.PropTypes.func,
-	  channelName: _react2.default.PropTypes.string
-=======
 	  isActive: _propTypes2.default.bool,
 	  className: _propTypes2.default.string,
 	  style: _propTypes2.default.object,
@@ -785,8 +767,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stickyStyle: _propTypes2.default.object,
 	  topOffset: _propTypes2.default.number,
 	  bottomOffset: _propTypes2.default.number,
-	  onStickyStateChange: _propTypes2.default.func
->>>>>>> upstream/master
+	  onStickyStateChange: _propTypes2.default.func,
+	  channelName: _propTypes2.default.string
 	};
 	Sticky.defaultProps = {
 	  isActive: true,
@@ -805,9 +787,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Sticky;
 	module.exports = exports['default'];
 
-<<<<<<< HEAD
 /***/ },
-/* 6 */
+/* 11 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -1252,11 +1233,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ }
-=======
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright 2013-present, Facebook, Inc.
@@ -1271,8 +1250,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	if ((undefined) !== 'production') {
 	  var invariant = __webpack_require__(2);
-	  var warning = __webpack_require__(6);
-	  var ReactPropTypesSecret = __webpack_require__(5);
+	  var warning = __webpack_require__(4);
+	  var ReactPropTypesSecret = __webpack_require__(6);
 	  var loggedTypeFailures = {};
 	}
 
@@ -1321,9 +1300,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = checkPropTypes;
 
 
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright 2013-present, Facebook, Inc.
@@ -1381,9 +1360,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright 2013-present, Facebook, Inc.
@@ -1398,10 +1377,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var emptyFunction = __webpack_require__(1);
 	var invariant = __webpack_require__(2);
-	var warning = __webpack_require__(6);
+	var warning = __webpack_require__(4);
 
-	var ReactPropTypesSecret = __webpack_require__(5);
-	var checkPropTypes = __webpack_require__(11);
+	var ReactPropTypesSecret = __webpack_require__(6);
+	var checkPropTypes = __webpack_require__(12);
 
 	module.exports = function(isValidElement, throwOnDirectAccess) {
 	  /* global Symbol */
@@ -1865,8 +1844,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 
-/***/ })
->>>>>>> upstream/master
+/***/ }
 /******/ ])
 });
 ;
